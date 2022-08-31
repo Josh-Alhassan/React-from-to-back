@@ -7,6 +7,7 @@ import { icons } from 'react-icons/lib';
 import FeedbackList from './component/FeedbackList';
 import FeedbackStats from './component/FeedbackStats';
 import FeedbackForm from './component/FeedbackForm';
+import AboutIconLink from './component/AboutIconLink';
 import FeedbackData from './data/FeedbackData';
 import AboutPage from './Pages/AboutPage';
 
@@ -39,6 +40,8 @@ function App() {
 
           <Route path='/about' element={<AboutPage />} />
         </Routes>
+
+        <AboutIconLink />
       </div>
     </Router>
   );

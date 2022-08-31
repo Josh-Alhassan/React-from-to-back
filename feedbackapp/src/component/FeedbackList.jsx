@@ -6,8 +6,8 @@ import Card from './shared/Card';
 import FeedbackContext from '../context/FeedbackContext';
 // import PropTypes from 'prop-types';
 
-function FeedbackList({handleDelete}) {
-    const {feedback} = useContext(FeedbackContext)
+function FeedbackList() {
+    const { feedback } = useContext(FeedbackContext)
     if (!feedback || feedback.length === 0) {
         return <p>No Feedback yet</p>
     }
@@ -22,7 +22,7 @@ function FeedbackList({handleDelete}) {
                     animate={{opacity:1}}
                     exit={{opacity:0}}
                 >
-                    <FeedbackItem key={item.id} item = {item} handleDelete = {handleDelete} />
+                    <FeedbackItem key={item.id} item = {item} />
                 </motion.div>
             ))}
         </AnimatePresence>

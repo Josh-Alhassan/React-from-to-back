@@ -16,8 +16,7 @@ export const FeedbackProvider = ({children}) => {
 
     // Fetch Feedback
     const fetchFeedback = async() => {
-        // const response = await fetch(`/feedback?_sort=id&_order=desc`)
-        const response = await fetch(`https://5000-saintjosh-reactfromtoba-44n581l8uh5.ws-eu63.gitpod.io/feedback?_sort=id&_order=desc`)
+        const response = await fetch(`/feedback?_sort=id&_order=desc`)
         const data = await response.json()
 
         setFeedback(data)
@@ -25,7 +24,7 @@ export const FeedbackProvider = ({children}) => {
     }
 
     const addFeedback = async (newFeedback) => {
-        const response = await fetch('https://5000-saintjosh-reactfromtoba-44n581l8uh5.ws-eu63.gitpod.io/feedback', {
+        const response = await fetch('/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,9 +36,10 @@ export const FeedbackProvider = ({children}) => {
         setFeedback([data, ...feedback])
     }
 
-    const deleteFeedBack = (id) => {
+    const deleteFeedBack = async (id) => {
         if(window.confirm('Are you sure you want to delete?')) {
-          setFeedback(feedback.filter((item) => item.id !==id))
+            await fetch(`/feedback/${id}`, {method: 'DELETE'})
+            setFeedback(feedback.filter((item) => item.id !==id))
         }
       }
 
@@ -52,8 +52,17 @@ export const FeedbackProvider = ({children}) => {
     }
 
     // Update feedback Item
-    const updateFeedback = (id, updItem) => {
-        setFeedback(feedback.map((item) => item.id === id ? {...item, ...updItem} : item))
+    const updateFeedback = async (id, updItem) => {
+        const response = await fetch(`/feedback/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updItem)
+        })
+
+        const data = await response.json()
+        setFeedback(feedback.map((item) => item.id === id ? {...item, ...data} : item))
     }
     
     return (
